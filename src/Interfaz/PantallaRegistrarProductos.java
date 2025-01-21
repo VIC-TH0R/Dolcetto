@@ -2,12 +2,16 @@ package Interfaz;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import logica.LogicaProducto;
 
-public class PantallaRegistrarProductos extends JFrame{
+public class PantallaRegistrarProductos extends JFrame implements ActionListener{
     
     private JLabel nombreArticulo, precioArticulo;
     private JTextField nombre, precio;
     private JButton registrar;
+    private String getNombre, getPrecioTexto;
+    private double getPrecio;
     
     public PantallaRegistrarProductos(){
         
@@ -37,6 +41,29 @@ public class PantallaRegistrarProductos extends JFrame{
         //JButton
         registrar = new JButton("Registrar");
         registrar.setBounds(130,170,90,30);
+        registrar.addActionListener(this);
         add(registrar);
+    }
+    
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource() == registrar){
+            
+            getNombre = nombre.getText();
+            getPrecioTexto = precio.getText();
+            getPrecio = Double.parseDouble(getPrecioTexto);
+            
+            if(getNombre.isEmpty() || getPrecioTexto.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, rellene los campos para continuar");
+            }else{
+                try{
+                    //crear objeto y llamar al método para guardar la información
+                    LogicaProducto guardarProductos = new LogicaProducto();
+                    guardarProductos.agregarProductos(getNombre, getPrecio);
+                    JOptionPane.showMessageDialog(null, "El producto ha sido creado exitosamente");
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "El precio debe ser un formato válido");
+                }
+            }
+        }
     }
 }
