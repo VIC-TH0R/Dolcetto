@@ -10,13 +10,16 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
     private JLabel nombreArticulo, precioArticulo;
     private JTextField nombre, precio;
     private JButton registrar;
+    boolean agregado;
     private String getNombre, getPrecioTexto;
     private double getPrecio;
+    private LogicaProducto guardarProductos; 
     
     public PantallaRegistrarProductos(){
         
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        guardarProductos = new LogicaProducto();
         
         //JLabels
         
@@ -48,18 +51,25 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == registrar){
             
-            getNombre = nombre.getText();
-            getPrecioTexto = precio.getText();
-            getPrecio = Double.parseDouble(getPrecioTexto);
+            getNombre = nombre.getText().trim();
+            getPrecioTexto = precio.getText().trim();
             
             if(getNombre.isEmpty() || getPrecioTexto.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Por favor, rellene los campos para continuar");
+                return;
             }else{
                 try{
                     //crear objeto y llamar al método para guardar la información
-                    LogicaProducto guardarProductos = new LogicaProducto();
-                    guardarProductos.agregarProductos(getNombre, getPrecio);
-                    JOptionPane.showMessageDialog(null, "El producto ha sido creado exitosamente");
+                    getPrecio = Double.parseDouble(getPrecioTexto);
+                    
+                    boolean agregado = guardarProductos.agregarProductos(getNombre, getPrecio);
+                    System.out.println(agregado);
+                    
+                    if(agregado == true){
+                        JOptionPane.showMessageDialog(null, "El producto ha sido creado exitosamente");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El producto ya existe, no es posible duplicar");
+                    }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "El precio debe ser un formato válido");
                 }
