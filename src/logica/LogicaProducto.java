@@ -32,4 +32,17 @@ public class LogicaProducto{
         return false;
     }
     
+    public int buscarProducto(String nombre, double precio){
+        Producto aux = new Producto(precio, nombre);
+        int indice = 0;
+        
+        while(indice < productos.size()){
+            if(aux.getNombre().equals(productos.get(indice).getNombre()) && aux.getPrecioUnidad() == productos.get(indice).getPrecioUnidad()){
+                return indice;
+            }else{
+                indice++;
+            }
+        }
+        return -1;
+    }
 }
