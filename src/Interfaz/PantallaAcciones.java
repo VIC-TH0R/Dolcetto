@@ -22,16 +22,17 @@ public class PantallaAcciones extends JFrame implements ActionListener{
         ImageIcon iconoInforme = new ImageIcon("images/pdfgenerator.png");
         ImageIcon iconoSalir = new ImageIcon("images/exit.png");
         
-        
+        //JButtons
         botonRegistrarProductos = new JButton();
         botonRegistrarProductos.setBounds(15,90,100,100);           //falta agregar los listener a los
         botonRegistrarProductos.setIcon(new ImageIcon(iconoProductos.getImage().getScaledInstance(botonRegistrarProductos.getWidth(), botonRegistrarProductos.getHeight(), Image.SCALE_SMOOTH)));
         botonRegistrarProductos.addActionListener(this);
-        add(botonRegistrarProductos);                               //botones
+        add(botonRegistrarProductos);                               
         
         botonModificarProductos = new JButton();
         botonModificarProductos.setBounds(150,90,100,100);
         botonModificarProductos.setIcon(new ImageIcon(iconoModificar.getImage().getScaledInstance(botonModificarProductos.getWidth(), botonModificarProductos.getHeight(), Image.SCALE_SMOOTH)));
+        botonModificarProductos.addActionListener(this);
         add(botonModificarProductos);
         
         botonGenerarInforme = new JButton();
@@ -71,6 +72,8 @@ public class PantallaAcciones extends JFrame implements ActionListener{
         
         if(e.getSource() == botonRegistrarProductos){
             abrirVentanaRegistrarProductos();
+        }else if(e.getSource() == botonModificarProductos){
+            abrirVentanaModificarProducto();
         }
     }
     
@@ -80,6 +83,15 @@ public class PantallaAcciones extends JFrame implements ActionListener{
         registro.setVisible(true);
         registro.setBounds(0,0,400,250);
         registro.setLocationRelativeTo(botonGenerarInforme);
-        registro.setResizable(true);
+        registro.setResizable(false);
+    }
+    
+    private void abrirVentanaModificarProducto(){
+        
+        PantallaModificarProductos modificarProductos = new PantallaModificarProductos();
+        modificarProductos.setBounds(0,0,400,250);
+        modificarProductos.setVisible(true);
+        modificarProductos.setLocationRelativeTo(botonSalir);
+        modificarProductos.setResizable(true);
     }
 }

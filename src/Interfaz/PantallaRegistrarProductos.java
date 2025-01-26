@@ -63,7 +63,6 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
                     getPrecio = Double.parseDouble(getPrecioTexto);
                     
                     boolean agregado = guardarProductos.agregarProductos(getNombre, getPrecio);
-                    System.out.println(agregado);
                     
                     if(agregado == true){
                         JOptionPane.showMessageDialog(null, "El producto ha sido creado exitosamente");

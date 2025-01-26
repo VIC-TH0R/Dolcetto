@@ -32,7 +32,7 @@ public class LogicaProducto{
         return false;
     }
     
-    public int buscarProducto(String nombre, double precio){
+    public static int buscarProducto(String nombre, double precio){
         Producto aux = new Producto(precio, nombre);
         int indice = 0;
         
