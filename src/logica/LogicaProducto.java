@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LogicaProducto{
-    private static ArrayList <Producto> productos;
+    public static ArrayList <Producto> productos;
     
     public LogicaProducto(){
         if(productos == null){
@@ -22,9 +22,7 @@ public class LogicaProducto{
     }
     
     public boolean existeProducto(String nombre, double precio){
-        System.out.println("Dentro del método existeProducto, antes del for");
         for(Producto producto : productos){
-            System.out.println("Dentro del for del método, nombre:" + producto.getNombre());
             if(producto.getNombre().equalsIgnoreCase(nombre) && producto.getPrecioUnidad() == precio){
                 return true;
             }
@@ -44,5 +42,15 @@ public class LogicaProducto{
             }
         }
         return -1;
+    }
+    
+    public static void mostrarProductos(){
+        
+        System.out.println("\tNOMBRE\t\tPRECIO");
+        
+        for(Producto aux : productos){
+            System.out.print("\t" + aux.getNombre());
+            System.out.println("\t" + aux.getPrecioUnidad());
+        }
     }
 }

@@ -5,16 +5,18 @@ import java.awt.event.*;
 import java.awt.*;
 import logica.LogicaProducto;
 
-public class PantallaModificarProductos extends JFrame implements ActionListener{
+public class PantallaBuscarProductos extends JFrame implements ActionListener{
     
     private JLabel nombreABuscar, precioABuscar;
     private JTextField nombre, precio;
     private JButton botonBuscar;
+    //private JTable tabla;
+    //private String[] titulos;
     private String guardaNombreBuscar, guardaPrecioBuscar;
     private double precioBuscar;
     private int busqueda;
     
-    public PantallaModificarProductos(){
+    public PantallaBuscarProductos(){
         setLayout(null);
         
         nombreABuscar = new JLabel("Nombre del producto a buscar");
@@ -39,13 +41,14 @@ public class PantallaModificarProductos extends JFrame implements ActionListener
         botonBuscar.setBounds(230,170,80,30);
         botonBuscar.addActionListener(this);
         add(botonBuscar);
+        
+        LogicaProducto.mostrarProductos();
     }
     
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == botonBuscar){
             guardaNombreBuscar = nombre.getText().trim();
             guardaPrecioBuscar = precio.getText().trim();
-            
             if(guardaNombreBuscar.isEmpty() || guardaPrecioBuscar.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Es necesario completar ambos campos para continuar");
             }else{
@@ -53,9 +56,12 @@ public class PantallaModificarProductos extends JFrame implements ActionListener
                     precioBuscar = Double.parseDouble(guardaPrecioBuscar);
                     busqueda = LogicaProducto.buscarProducto(guardaNombreBuscar, precioBuscar);
                     if(busqueda > -1){
-                        JOptionPane.showMessageDialog(null, "Se ha podido encontar el producto con éxito");
+                        JOptionPane.showMessageDialog(null, "Se ha podido encontar el producto con éxito"); //sacar después
                         System.out.println("Se ha encontrado el elemento en la posición " + busqueda);
-                        //llama nueva ventana para modificar productos
+                        PantallaModificarProducto modificar = new PantallaModificarProducto(busqueda);
+                        modificar.setBounds(0,0,230,250);
+                        modificar.setVisible(true);
+                        modificar.setLocationRelativeTo(botonBuscar);
                     }else{
                         JOptionPane.showMessageDialog(null, "No se ha podido encontrar el producto");
                     }

@@ -17,4 +17,12 @@ public class Producto{
     public double getPrecioUnidad(){
         return precioUnidad;
     }
+    
+    public void setNombre(String nombre){
+        nombreProducto = nombre;
+    }
+    
+    public void setPrecioUnidad(double precio){
+        precioUnidad = precio;
+    }
 }
