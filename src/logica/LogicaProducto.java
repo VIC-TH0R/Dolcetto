@@ -53,4 +53,18 @@ public class LogicaProducto{
             System.out.println("\t" + aux.getPrecioUnidad());
         }
     }
+    
+    public static Object[][] convertirArrayListAArray(ArrayList<Producto> productosAux){
+        
+        Object[][] datos = new Object[productosAux.size()][2];
+        
+        for(int i = 0; i < productosAux.size(); i++){
+            
+            Producto produ = productosAux.get(i);
+            datos[i][0] = produ.getNombre();
+            datos[i][1] = produ.getPrecioUnidad();
+        }
+        
+        return datos;
+    }
 }

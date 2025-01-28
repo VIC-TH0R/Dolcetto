@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import logica.LogicaProducto;
-//import logica.LogicaProducto;
 
 public class PantallaModificarProducto extends JFrame implements ActionListener{
     

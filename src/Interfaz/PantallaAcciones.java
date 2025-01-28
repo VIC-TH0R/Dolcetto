@@ -38,6 +38,7 @@ public class PantallaAcciones extends JFrame implements ActionListener{
         botonGenerarInforme = new JButton();
         botonGenerarInforme.setBounds(285,90,100,100);
         botonGenerarInforme.setIcon(new ImageIcon(iconoInforme.getImage().getScaledInstance(botonGenerarInforme.getWidth(), botonGenerarInforme.getHeight(), Image.SCALE_SMOOTH)));
+        botonGenerarInforme.addActionListener(this);
         add(botonGenerarInforme);
         
         botonSalir = new JButton();
@@ -74,6 +75,14 @@ public class PantallaAcciones extends JFrame implements ActionListener{
             abrirVentanaRegistrarProductos();
         }else if(e.getSource() == botonModificarProductos){
             abrirVentanaModificarProducto();
+        }else if(e.getSource() == botonGenerarInforme){
+            
+            PantallaGenerarPDF pantallaPDF = new PantallaGenerarPDF();
+            
+            pantallaPDF.setVisible(true);
+            pantallaPDF.setBounds(0,0,400,700);
+            pantallaPDF.setLocationRelativeTo(botonSalir);
+            pantallaPDF.setResizable(true);
         }
     }
     
