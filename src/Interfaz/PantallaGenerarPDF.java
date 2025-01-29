@@ -11,10 +11,10 @@ public class PantallaGenerarPDF extends JFrame{
     private JTable tabla, tablaParaVentas;
     private Object [][] datosParaTabla, datosParaTablaVentas;
     private String[] nombresColumnasParaTabla, nombresJCombo, nombresColumnasVentas; 
-    private JLabel ProductoAgregar, productosExistentes, cantidad;
-    private JTextField NombreProducto, textFieldCantidad;
+    private JLabel ProductoAgregar, productosExistentes, cantidad, total;
+    private JTextField NombreProducto, textFieldCantidad, totalPrecio;
     private JScrollPane paraLaTabla, paraTablaVentas;
-    private JButton botonBuscar;
+    private JButton botonBuscar, botoncarritoAgregarProducto;
     private JComboBox cantidades;
     
     public PantallaGenerarPDF(){
@@ -65,6 +65,12 @@ public class PantallaGenerarPDF extends JFrame{
         cantidad.setBounds(20,340,100,30);
         cantidad.setFont(new Font("Andale Mono",1, 13));
         add(cantidad);
+        
+        total = new JLabel("Total");
+        total.setBounds(200,570,70,30);
+        total.setFont(new Font("Andale Mono", 1, 13));
+        add(total);
+        
         //JTextFields
         
         NombreProducto = new JTextField();
@@ -75,9 +81,15 @@ public class PantallaGenerarPDF extends JFrame{
         textFieldCantidad.setBounds(20,370,130,30);
         add(textFieldCantidad);
         
+        totalPrecio = new JTextField();
+        totalPrecio.setBounds(240,570,90,30);
+        totalPrecio.setEditable(false);
+        add(totalPrecio);
+        
         //imagen JButton
         
         ImageIcon iconoBuscar = new ImageIcon("images/busqueda.png");
+        ImageIcon iconoCarrito = new ImageIcon("images/Carrito.png");
         
         //JButtons
         
@@ -87,11 +99,16 @@ public class PantallaGenerarPDF extends JFrame{
         //botonBuscar.addActionListener(this);
         add(botonBuscar);
         
+        botoncarritoAgregarProducto = new JButton();
+        botoncarritoAgregarProducto.setBounds(300,370,30,30);
+        botoncarritoAgregarProducto.setIcon(new ImageIcon(iconoCarrito.getImage().getScaledInstance(botoncarritoAgregarProducto.getWidth(), botoncarritoAgregarProducto.getHeight(), Image.SCALE_SMOOTH)));
+        //botoncarritoAgregarProducto.addActionListener(this);
+        add(botoncarritoAgregarProducto);
+        
         //JComboBox
         
         cantidades = new JComboBox(nombresJCombo);
         cantidades.setBounds(170,370,100,25);
         add(cantidades);
-        
     }
 }
