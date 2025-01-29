@@ -21,7 +21,7 @@ public class PantallaGenerarPDF extends JFrame{
         
         setLayout(null);
         
-        nombresJCombo = new String[]{"", "Unidades", "Decenas", "Kilos"};
+        nombresJCombo = new String[]{"", "Unidades", "Docenas", "Kilos"};
         
         //inicializando los datos para la tabla
         nombresColumnasParaTabla = new String []{"Nombre", "Precio"};
@@ -46,7 +46,7 @@ public class PantallaGenerarPDF extends JFrame{
         //Agregando el JSrollPane a la tablaParaVentas
        
         paraTablaVentas = new JScrollPane(tablaParaVentas);
-        paraTablaVentas.setBounds(20,430,350,200);
+        paraTablaVentas.setBounds(20,410,350,150);
         add(paraTablaVentas);
         
         //JLabels
@@ -57,22 +57,22 @@ public class PantallaGenerarPDF extends JFrame{
         add(productosExistentes);
         
         ProductoAgregar = new JLabel("Producto a agregar");
-        ProductoAgregar.setBounds(20,290,180,30);
+        ProductoAgregar.setBounds(20,260,180,30);
         ProductoAgregar.setFont(new Font("Andale Mono", 1, 13));
         add(ProductoAgregar);
         
         cantidad = new JLabel("Cantidad");
-        cantidad.setBounds(20,370,100,30);
+        cantidad.setBounds(20,340,100,30);
         cantidad.setFont(new Font("Andale Mono",1, 13));
         add(cantidad);
         //JTextFields
         
         NombreProducto = new JTextField();
-        NombreProducto.setBounds(20,320,250,30);
+        NombreProducto.setBounds(20,290,250,30);
         add(NombreProducto);
         
         textFieldCantidad = new JTextField("");
-        textFieldCantidad.setBounds(20,400,130,30);
+        textFieldCantidad.setBounds(20,370,130,30);
         add(textFieldCantidad);
         
         //imagen JButton
@@ -82,7 +82,7 @@ public class PantallaGenerarPDF extends JFrame{
         //JButtons
         
         botonBuscar = new JButton();
-        botonBuscar.setBounds(275,320,30,30);
+        botonBuscar.setBounds(275,290,30,30);
         botonBuscar.setIcon(new ImageIcon(iconoBuscar.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_SMOOTH)));
         //botonBuscar.addActionListener(this);
         add(botonBuscar);
@@ -90,7 +90,7 @@ public class PantallaGenerarPDF extends JFrame{
         //JComboBox
         
         cantidades = new JComboBox(nombresJCombo);
-        cantidades.setBounds(170,400,100,25);
+        cantidades.setBounds(170,370,100,25);
         add(cantidades);
         
     }
