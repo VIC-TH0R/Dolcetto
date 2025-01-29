@@ -6,16 +6,21 @@ import java.awt.*;
 import logica.LogicaProducto;
 import logica.LogicaVentas;
 
-public class PantallaGenerarPDF extends JFrame{
+public class PantallaGenerarPDF extends JFrame implements ActionListener{
     
     private JTable tabla, tablaParaVentas;
     private Object [][] datosParaTabla, datosParaTablaVentas;
     private String[] nombresColumnasParaTabla, nombresJCombo, nombresColumnasVentas; 
-    private JLabel ProductoAgregar, productosExistentes, cantidad, total;
+    private JLabel ProductoAgregar, productosExistentes, cantidad, total, generarPDF;
     private JTextField NombreProducto, textFieldCantidad, totalPrecio;
     private JScrollPane paraLaTabla, paraTablaVentas;
-    private JButton botonBuscar, botoncarritoAgregarProducto;
+    private JButton botonBuscar, botoncarritoAgregarProducto, botonGenerarPdf;
     private JComboBox cantidades;
+    
+    //variables para almacenar los datos de los campos
+    
+    private String nombreBuscado;
+    private int indice;
     
     public PantallaGenerarPDF(){
         
@@ -71,6 +76,11 @@ public class PantallaGenerarPDF extends JFrame{
         total.setFont(new Font("Andale Mono", 1, 13));
         add(total);
         
+        generarPDF = new JLabel("Generar Presupuesto");
+        generarPDF.setBounds(170,615,140,25);
+        generarPDF.setFont(new Font("Andale Mono",1,12));
+        add(generarPDF);
+        
         //JTextFields
         
         NombreProducto = new JTextField();
@@ -90,13 +100,14 @@ public class PantallaGenerarPDF extends JFrame{
         
         ImageIcon iconoBuscar = new ImageIcon("images/busqueda.png");
         ImageIcon iconoCarrito = new ImageIcon("images/Carrito.png");
+        ImageIcon iconoPDF = new ImageIcon("images/pdfgenerator.png");
         
         //JButtons
         
         botonBuscar = new JButton();
         botonBuscar.setBounds(275,290,30,30);
         botonBuscar.setIcon(new ImageIcon(iconoBuscar.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_SMOOTH)));
-        //botonBuscar.addActionListener(this);
+        botonBuscar.addActionListener(this);
         add(botonBuscar);
         
         botoncarritoAgregarProducto = new JButton();
@@ -105,10 +116,35 @@ public class PantallaGenerarPDF extends JFrame{
         //botoncarritoAgregarProducto.addActionListener(this);
         add(botoncarritoAgregarProducto);
         
+        botonGenerarPdf = new JButton();
+        botonGenerarPdf.setBounds(300,610,30,30);
+        botonGenerarPdf.setIcon(new ImageIcon(iconoPDF.getImage().getScaledInstance(botonGenerarPdf.getWidth(), botonGenerarPdf.getHeight(), Image.SCALE_SMOOTH)));
+        //generarPdf.addActionListener(this);
+        add(botonGenerarPdf);
+        
         //JComboBox
         
         cantidades = new JComboBox(nombresJCombo);
         cantidades.setBounds(170,370,100,25);
         add(cantidades);
+    }
+    
+    public void actionPerformed(ActionEvent e){
+        
+        if(e.getSource() == botonBuscar){
+            
+            nombreBuscado = NombreProducto.getText().trim();
+            indice = LogicaProducto.buscarProducto(nombreBuscado);
+            NombreProducto.setEnabled(false);
+            botonBuscar.setEnabled(false);
+            
+            if(indice != -1){
+                JOptionPane.showMessageDialog(null, "Se ha encontrado el producto");
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "No se ha encontrado el producto, intente nuevamente");
+            }
+            
+        }
     }
 }

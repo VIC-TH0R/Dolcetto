@@ -30,15 +30,11 @@ public class LogicaProducto{
         return false;
     }
     
-    public static int buscarProducto(String nombre, double precio){
-        Producto aux = new Producto(precio, nombre);
-        int indice = 0;
+    public static int buscarProducto(String nombre){
         
-        while(indice < productos.size()){
-            if(aux.getNombre().equals(productos.get(indice).getNombre()) && aux.getPrecioUnidad() == productos.get(indice).getPrecioUnidad()){
-                return indice;
-            }else{
-                indice++;
+        for(int i = 0; i < productos.size(); i++){
+            if(productos.get(i).getNombre().equalsIgnoreCase(nombre)){
+                return i;
             }
         }
         return -1;
