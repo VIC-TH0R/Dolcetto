@@ -4,15 +4,16 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import logica.LogicaProducto;
+import logica.LogicaVentas;
 
 public class PantallaGenerarPDF extends JFrame{
     
-    private JTable tabla;
-    private Object [][] datosParaTabla;
-    private String[] nombresColumnas, nombresJCombo; 
+    private JTable tabla, tablaParaVentas;
+    private Object [][] datosParaTabla, datosParaTablaVentas;
+    private String[] nombresColumnasParaTabla, nombresJCombo, nombresColumnasVentas; 
     private JLabel ProductoAgregar, productosExistentes, cantidad;
     private JTextField NombreProducto, textFieldCantidad;
-    private JScrollPane paraLaTabla;
+    private JScrollPane paraLaTabla, paraTablaVentas;
     private JButton botonBuscar;
     private JComboBox cantidades;
     
@@ -21,17 +22,32 @@ public class PantallaGenerarPDF extends JFrame{
         setLayout(null);
         
         nombresJCombo = new String[]{"", "Unidades", "Decenas", "Kilos"};
+        
         //inicializando los datos para la tabla
-        nombresColumnas = new String []{"Nombre", "Precio"};
+        nombresColumnasParaTabla = new String []{"Nombre", "Precio"};
         datosParaTabla = LogicaProducto.convertirArrayListAArray(LogicaProducto.productos);
+        //inicializando los datos para la tabla de ventas
+        datosParaTablaVentas = LogicaVentas.ConvertirVentasAArray();
+        nombresColumnasVentas = new String[]{"Precio", "Cantidad", "Medida", "Nombre"};
         
         //creando la tabla
-        tabla = new JTable(datosParaTabla, nombresColumnas);
+        tabla = new JTable(datosParaTabla, nombresColumnasParaTabla);
         tabla.setEnabled(false);
+        
+        //creando la tabla para las ventas
+        
+        tablaParaVentas = new JTable(datosParaTablaVentas, nombresColumnasVentas);
+        
         //agreando el JScrollPane
         paraLaTabla = new JScrollPane(tabla);
         paraLaTabla.setBounds(20,50,350,200);
         add(paraLaTabla);
+        
+        //Agregando el JSrollPane a la tablaParaVentas
+       
+        paraTablaVentas = new JScrollPane(tablaParaVentas);
+        paraTablaVentas.setBounds(20,430,350,200);
+        add(paraTablaVentas);
         
         //JLabels
         
