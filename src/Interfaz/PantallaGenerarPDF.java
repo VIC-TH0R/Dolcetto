@@ -3,6 +3,7 @@ package Interfaz;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import javax.swing.table.DefaultTableModel;
 import logica.LogicaProducto;
 import logica.LogicaVentas;
 
@@ -14,7 +15,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
     private JLabel ProductoAgregar, productosExistentes, cantidad, total, generarPDF;
     private JTextField NombreProducto, textFieldCantidad, totalPrecio;
     private JScrollPane paraLaTabla, paraTablaVentas;
-    private JButton botonBuscar, botoncarritoAgregarProducto, botonGenerarPdf;
+    private JButton botonBuscar, botonCarritoAgregarProducto, botonGenerarPdf;
     private JComboBox cantidades;
     
     //variables para almacenar los datos de los campos
@@ -110,11 +111,11 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         botonBuscar.addActionListener(this);
         add(botonBuscar);
         
-        botoncarritoAgregarProducto = new JButton();
-        botoncarritoAgregarProducto.setBounds(300,370,30,30);
-        botoncarritoAgregarProducto.setIcon(new ImageIcon(iconoCarrito.getImage().getScaledInstance(botoncarritoAgregarProducto.getWidth(), botoncarritoAgregarProducto.getHeight(), Image.SCALE_SMOOTH)));
-        //botoncarritoAgregarProducto.addActionListener(this);
-        add(botoncarritoAgregarProducto);
+        botonCarritoAgregarProducto = new JButton();
+        botonCarritoAgregarProducto.setBounds(300,370,30,30);
+        botonCarritoAgregarProducto.setIcon(new ImageIcon(iconoCarrito.getImage().getScaledInstance(botonCarritoAgregarProducto.getWidth(), botonCarritoAgregarProducto.getHeight(), Image.SCALE_SMOOTH)));
+        botonCarritoAgregarProducto.addActionListener(this);
+        add(botonCarritoAgregarProducto);
         
         botonGenerarPdf = new JButton();
         botonGenerarPdf.setBounds(300,610,30,30);
@@ -129,22 +130,84 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         add(cantidades);
     }
     
-    public void actionPerformed(ActionEvent e){
-        
-        if(e.getSource() == botonBuscar){
-            
-            nombreBuscado = NombreProducto.getText().trim();
-            indice = LogicaProducto.buscarProducto(nombreBuscado);
+public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == botonBuscar) {
+        nombreBuscado = NombreProducto.getText().trim();
+        indice = LogicaProducto.buscarProducto(nombreBuscado);
+
+        if (indice > -1) {
+            JOptionPane.showMessageDialog(null, "Se ha encontrado el producto");
             NombreProducto.setEnabled(false);
+            NombreProducto.setDisabledTextColor(Color.BLACK);
+            NombreProducto.setBackground(new Color(200, 200, 200)); // color gris
             botonBuscar.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el producto, intente nuevamente");
+        }
+    }
+
+    if (e.getSource() == botonCarritoAgregarProducto) {
+        if (agregarProductoAlCarrito(indice)) {
+            JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
+            NombreProducto.setEnabled(true);
+            NombreProducto.setDisabledTextColor(Color.WHITE);
+            NombreProducto.setBackground(new Color(255, 255, 255));
+            botonBuscar.setEnabled(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo agregar el producto, intente nuevamente");
+        }
+    }
+}
+    
+    private boolean agregarProductoAlCarrito(int indice){
+        
+        String cantidadTexto, getUnidad;
+        int canti;
+        boolean seAgregoCorrectamente;
+        
+        cantidadTexto = textFieldCantidad.getText().trim();
+        getUnidad = (String)cantidades.getSelectedItem();
+        seAgregoCorrectamente = false;
+        
+        if(cantidadTexto.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad");
+            return false;
+        }
+        
+        try{
+            canti = Integer.parseInt(cantidadTexto);
             
-            if(indice != -1){
-                JOptionPane.showMessageDialog(null, "Se ha encontrado el producto");
-                
-            }else{
-                JOptionPane.showMessageDialog(null, "No se ha encontrado el producto, intente nuevamente");
+            if(canti <= 0){
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser mayor a 0");
+                return false;
             }
             
+            if(getUnidad == null || getUnidad.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione una unidad de medida");
+                return false;
+            }
+            //Crear un objeto de tipo LogicaVentas
+            LogicaVentas.agregarProductoVendido(LogicaProducto.productos.get(indice).getPrecioUnidad(), canti, getUnidad, LogicaProducto.productos.get(indice).getNombre());
+            //ahora hay que actualizar la tabla
+            actualizarTablaVentas();
+            seAgregoCorrectamente = true;
+            
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Por favor, introduzca un número válido para continuar");
         }
+        
+        return seAgregoCorrectamente;
+        
+    }
+    
+    private void actualizarTablaVentas(){
+        //creando el objeto para la tabla
+        Object[][] nuevosDatos = LogicaVentas.ConvertirVentasAArray();
+        //creando la tabla
+        DefaultTableModel modelo = new DefaultTableModel(nuevosDatos, nombresColumnasVentas);
+        tablaParaVentas.setModel(modelo);
+        //actualizando la tabla con cada nuevo producto
+        tablaParaVentas.revalidate();
+        tablaParaVentas.repaint();
     }
 }

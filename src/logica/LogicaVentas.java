@@ -12,7 +12,7 @@ public class LogicaVentas{
         }
     }
     
-    public void agregarProductoVendido(double precio, int cantidad, String medidaUsada, String nombreArticulo){
+    public static void agregarProductoVendido(double precio, int cantidad, String medidaUsada, String nombreArticulo){
         //si el producto ya estaba en la lista, actualiza la cantidad
         for(ProductosVentas pv : ventas){
             if(pv.getPrecioProducto() == precio && pv.getCantidadProducto() == cantidad && pv.getMedidaUsada().equalsIgnoreCase(medidaUsada) && pv.getNombreProducto().equalsIgnoreCase(nombreArticulo)){
