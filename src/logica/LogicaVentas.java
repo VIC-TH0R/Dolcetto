@@ -62,7 +62,7 @@ public class LogicaVentas{
 
         switch(medida.trim()){
             
-            case "Unidad": return 1;
+            case "Unidades": return 1;
             case "Docenas": return 12;
             case "Kilos": return 1;
         }
