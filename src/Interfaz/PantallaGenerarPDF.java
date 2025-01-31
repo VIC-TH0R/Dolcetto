@@ -17,6 +17,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
     private JScrollPane paraLaTabla, paraTablaVentas;
     private JButton botonBuscar, botonCarritoAgregarProducto, botonGenerarPdf;
     private JComboBox cantidades;
+    double totalPara_totalPrecio;
     
     //variables para almacenar los datos de los campos
     
@@ -28,6 +29,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         setLayout(null);
         
         nombresJCombo = new String[]{"", "Unidades", "Docenas", "Kilos"};
+        totalPara_totalPrecio = 0;
         
         //inicializando los datos para la tabla
         nombresColumnasParaTabla = new String []{"Nombre", "Precio"};
@@ -187,9 +189,11 @@ public void actionPerformed(ActionEvent e) {
                 return false;
             }
             //Crear un objeto de tipo LogicaVentas
-            LogicaVentas.agregarProductoVendido(LogicaProducto.productos.get(indice).getPrecioUnidad(), canti, getUnidad, LogicaProducto.productos.get(indice).getNombre());
+            totalPara_totalPrecio = LogicaVentas.agregarProductoVendido(LogicaProducto.productos.get(indice).getPrecioUnidad(), canti, getUnidad, LogicaProducto.productos.get(indice).getNombre(), totalPara_totalPrecio);
             //ahora hay que actualizar la tabla
             actualizarTablaVentas();
+            //actualizar el JTextField
+            totalPrecio.setText(String.format("%.2f", totalPara_totalPrecio));
             seAgregoCorrectamente = true;
             
         }catch(NumberFormatException ex){
