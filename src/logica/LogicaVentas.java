@@ -13,7 +13,7 @@ public class LogicaVentas{
     }
     
     public static double agregarProductoVendido(double precio, int cantidad, String medidaUsada, String nombreArticulo, double totalVentas){
-        //si el producto ya estaba en la lista, actualiza la cantidad
+        //Caso que el producto ya exista
         for(ProductosVentas pv : ventas){
             if(pv.getNombreProducto().equalsIgnoreCase(nombreArticulo) && pv.getPrecioProducto() == precio && pv.getMedidaUsada().equalsIgnoreCase(medidaUsada)){
                 
@@ -27,13 +27,27 @@ public class LogicaVentas{
             }
         }
         int indiceNuevo;
-        //si no estaba en la lista, lo agrega nuevo
+        //Caso que el producto no exista
         ventas.add(new ProductosVentas(nombreArticulo, precio, cantidad, medidaUsada));
         //obtenemos el índice
         indiceNuevo = ventas.size() - 1;
         totalVentas = totalVentas + sumarTotal(ventas.get(indiceNuevo).getPrecioProducto(), ventas.get(indiceNuevo).getCantidadProducto(), ventas.get(indiceNuevo).getMedidaUsada());
         return totalVentas;
      }
+    
+    public static double quitarProductoVendido(int indice, double total){
+        double totalAntesDeBorrarElProducto;
+        
+        if(indice < 0 ){
+            return total;
+        }
+        
+        totalAntesDeBorrarElProducto = sumarTotal(ventas.get(indice).getPrecioProducto(), ventas.get(indice).getCantidadProducto(), ventas.get(indice).getMedidaUsada());
+        total -= totalAntesDeBorrarElProducto;
+        ventas.remove(indice);
+        
+        return total;
+    }
     
     //para devolver un objecto bidimensional para la tabla
     public static Object[][] ConvertirVentasAArray(){

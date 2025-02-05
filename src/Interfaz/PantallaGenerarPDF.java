@@ -18,6 +18,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
     private JButton botonBuscar, botonCarritoAgregarProducto, botonQuitarProducto, botonGenerarPdf;
     private JComboBox cantidades;
     double totalPara_totalPrecio;
+    private int filaSeleccionada;
     
     //variables para almacenar los datos de los campos
     
@@ -160,7 +161,7 @@ public void actionPerformed(ActionEvent e) {
         }
     }
 
-    if (e.getSource() == botonCarritoAgregarProducto){
+    if(e.getSource() == botonCarritoAgregarProducto){
         if(agregarProductoAlCarrito(indice)){
             JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
             NombreProducto.setEnabled(true);
@@ -171,6 +172,32 @@ public void actionPerformed(ActionEvent e) {
             JOptionPane.showMessageDialog(null, "No se pudo agregar el producto, intente nuevamente");
         }
     }
+    
+    if(e.getSource() == botonQuitarProducto){
+        
+        int filaSeleccionada = tablaParaVentas.getSelectedRow();
+        double totalLuegoDeBorrarElProducto;
+    
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un elemento para eliminar");
+        }else{
+        
+            if(filaSeleccionada < LogicaVentas.ventas.size()){
+                totalLuegoDeBorrarElProducto = LogicaVentas.quitarProductoVendido(filaSeleccionada, totalPara_totalPrecio);
+                if(totalLuegoDeBorrarElProducto < totalPara_totalPrecio){
+                    JOptionPane.showMessageDialog(null, "Se ha borrado el producto con éxito");
+                    totalPara_totalPrecio = totalLuegoDeBorrarElProducto;
+                    actualizarTablaVentas();
+                    totalPrecio.setText(String.format("%.2f", totalPara_totalPrecio));
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error al borrar el producto, intente nuevamente");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Índice de producto no válido");
+            }
+        }
+    }
+    
 }
     
     private boolean agregarProductoAlCarrito(int indice){
