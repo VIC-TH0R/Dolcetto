@@ -8,7 +8,7 @@ public class ProductosVentas{
     private String nombreProducto;
     
     
-    public ProductosVentas(double precioProducto, int cantidadProducto, String medidaUsada, String nombreProducto){
+    public ProductosVentas(String nombreProducto, double precioProducto, int cantidadProducto, String medidaUsada){
         
         this.precioProducto = precioProducto;
         this.cantidadProducto = cantidadProducto;
