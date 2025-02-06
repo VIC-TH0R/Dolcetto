@@ -1,6 +1,6 @@
 package Entidades;
                                     
-//Class to represent the basic entity of the file "Condiciones.txt"
+//Clase que representa el documento Condiciones.txt
 
 public class terminosYCondiciones{
     

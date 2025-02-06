@@ -40,7 +40,7 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
         botonBuscar.addActionListener(this);
         add(botonBuscar);
         
-        LogicaProducto.mostrarProductos();
+        //LogicaProducto.mostrarProductos();
     }
     
     public void actionPerformed(ActionEvent e){

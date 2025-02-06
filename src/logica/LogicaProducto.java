@@ -1,5 +1,6 @@
 package logica;
 
+import Entidades.DatosParaProducto;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -7,9 +8,8 @@ public class LogicaProducto{
     public static ArrayList <Producto> productos;
     
     public LogicaProducto(){
-        if(productos == null){
-            productos = new ArrayList<>();
-        }
+        
+        productos = DatosParaProducto.cargaProductos();
     }
     
     public boolean agregarProductos(String nombre, double precio){
@@ -18,6 +18,7 @@ public class LogicaProducto{
         }
         Producto producto = new Producto(precio, nombre);
         productos.add(producto);
+        DatosParaProducto.guardarProductos(productos);
         return true;
     }
     

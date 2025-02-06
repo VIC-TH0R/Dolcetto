@@ -6,6 +6,7 @@ import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 import logica.LogicaProducto;
 import logica.LogicaVentas;
+import Entidades.GenerarPDFVentas;
 
 public class PantallaGenerarPDF extends JFrame implements ActionListener{
     
@@ -132,7 +133,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         botonGenerarPdf = new JButton();
         botonGenerarPdf.setBounds(300,610,30,30);
         botonGenerarPdf.setIcon(new ImageIcon(iconoPDF.getImage().getScaledInstance(botonGenerarPdf.getWidth(), botonGenerarPdf.getHeight(), Image.SCALE_SMOOTH)));
-        //generarPdf.addActionListener(this);
+        botonGenerarPdf.addActionListener(this);
         add(botonGenerarPdf);
         
         //JComboBox
@@ -196,6 +197,10 @@ public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Índice de producto no válido");
             }
         }
+    }
+    
+    if(e.getSource() == botonGenerarPdf){
+        GenerarPDFVentas pdf = new GenerarPDFVentas(LogicaVentas.ventas, totalPara_totalPrecio);
     }
     
 }
