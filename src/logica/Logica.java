@@ -10,9 +10,9 @@ public class Logica{
        LogicaProducto primeraParaCargarDatos = new LogicaProducto();
        
        inicio.setVisible(true);
-       inicio.setBounds(0,0,400,250);
+       inicio.setBounds(0,0,600,400);
        inicio.setLocationRelativeTo(null);
-       inicio.setResizable(true);
+       inicio.setResizable(false);
     }
     
 }
