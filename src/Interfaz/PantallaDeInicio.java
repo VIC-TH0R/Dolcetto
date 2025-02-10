@@ -58,6 +58,8 @@ public class PantallaDeInicio extends JFrame implements ActionListener{
         nombre.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(nombre);
         
+        //JButtons
+        
         ingresar = new JButton("Ingresar");
         ingresar.setBounds(10,215,90,30);
         ingresar.setBackground(new Color(255,255,255));
@@ -74,16 +76,16 @@ public class PantallaDeInicio extends JFrame implements ActionListener{
             if(recuperarNombre.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Por favor, introduzca un nombre para continuar");
             }else{
-                abrirVentanaCondiciones(recuperarNombre);
+                abrirPantallaAcciones(recuperarNombre);
             }
         }
     }
     
-    void abrirVentanaCondiciones(String nombre){
-        PantallaCondiciones condiciones = new PantallaCondiciones();
+    void abrirPantallaAcciones(String nombre){
+        PantallaAcciones acciones = new PantallaAcciones(recuperarNombre);
         this.dispose();
-        condiciones.setVisible(true);
-        condiciones.setBounds(0,0,700,400);
-        condiciones.setLocationRelativeTo(null);
+        acciones.setVisible(true);
+        acciones.setBounds(0,0,550,330);
+        acciones.setLocationRelativeTo(null);
     }
 }
