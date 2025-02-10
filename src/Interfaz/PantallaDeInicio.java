@@ -28,7 +28,7 @@ public class PantallaDeInicio extends JFrame implements ActionListener{
         
         separador = new JLabel();
         separador.setBounds(290,0,1,370);
-        separador.setBorder(BorderFactory.createLineBorder(new Color(50,50,50)));
+        separador.setBorder(BorderFactory.createLineBorder(new Color(50,80,80)));
         add(separador);
         
         imagenEmpresa = new JLabel();
