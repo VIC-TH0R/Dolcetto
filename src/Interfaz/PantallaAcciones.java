@@ -115,10 +115,10 @@ public class PantallaAcciones extends JFrame implements ActionListener{
     private void abrirPantallaModificarProducto(){
         
         PantallaBuscarProductos modificarProductos = new PantallaBuscarProductos();
-        modificarProductos.setBounds(0,0,400,700);
+        modificarProductos.setBounds(0,0,400,550);
         modificarProductos.setVisible(true);
         modificarProductos.setLocationRelativeTo(botonSalir);
-        modificarProductos.setResizable(true);
+        modificarProductos.setResizable(false);
     }
     
     private void abrirPantallaGenerarPDF(){
@@ -127,6 +127,6 @@ public class PantallaAcciones extends JFrame implements ActionListener{
             pantallaPDF.setVisible(true);
             pantallaPDF.setBounds(0,0,400,700);
             pantallaPDF.setLocationRelativeTo(botonSalir);
-            pantallaPDF.setResizable(true);
+            pantallaPDF.setResizable(false);
     }
 }
