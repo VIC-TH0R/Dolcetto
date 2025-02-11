@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import logica.LogicaProducto;
+import Entidades.DatosParaProducto;
+import static logica.LogicaProducto.productos;
 
 public class PantallaBuscarProductos extends JFrame implements ActionListener{
     
@@ -14,8 +16,9 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
     private JLabel nombreABuscar, tablaProductos, nombreProductoNuevo, precioProductoNuevo, imagenFondo;
     private JTextField nombreProducto, nuevoNombreProducto, NuevoPrecioProducto;
     private JButton botonBuscar, botonEliminar, botonEditar;
-    private String guardaNombreBuscar;
-    private int busqueda;
+    private String guardaNombreBuscar, guardarPrecioNuevo;
+    private int busqueda = -1;
+    private double precioNuevo;
     
     public PantallaBuscarProductos(){
         setLayout(null);
@@ -27,6 +30,7 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
         ImageIcon iconoBuscar = new ImageIcon("images/busqueda.png");
         ImageIcon iconoEliminar = new ImageIcon("images/borrarProducto.png");
         ImageIcon iconoEditar = new ImageIcon("images/EditarProducto.png");
+        ImageIcon iconoSeguroDeEliminar = new ImageIcon("images/borrarProductoConfirmacion.png");
         
         //JTable
         NombreColumnasParaTablaProductos = new String[]{"Nombre", "Precio"};
@@ -45,14 +49,8 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
         nombreProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(nombreProducto);
         
-        nuevoNombreProducto = new JTextField("Nombre nuevo");
-        nuevoNombreProducto.setBounds(20,350,200,30);
-        nuevoNombreProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
-        add(nuevoNombreProducto);
-        nuevoNombreProducto.setEditable(false);
-        
         NuevoPrecioProducto = new JTextField("Precio nuevo");
-        NuevoPrecioProducto.setBounds(20,430,200,30);
+        NuevoPrecioProducto.setBounds(20,350,200,30);
         NuevoPrecioProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(NuevoPrecioProducto);
         NuevoPrecioProducto.setEditable(false);
@@ -64,6 +62,7 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
         botonBuscar.setIcon(new ImageIcon(iconoBuscar.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_SMOOTH)));
         botonBuscar.setBackground(new Color(255,255,255));
         botonBuscar.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        botonBuscar.addActionListener(this);
         add(botonBuscar);
         
         botonEliminar = new JButton();
@@ -73,10 +72,9 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
         botonEliminar.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         botonEliminar.addActionListener(this);
         add(botonEliminar);
-        botonEliminar.setEnabled(false);
         
         botonEditar = new JButton();
-        botonEditar.setBounds(240,385,30,30);
+        botonEditar.setBounds(230,350,30,30);
         botonEditar.setIcon(new ImageIcon(iconoEditar.getImage().getScaledInstance(botonEditar.getWidth(), botonEditar.getHeight(), Image.SCALE_SMOOTH)));
         botonEditar.setBackground(new Color(255,255,255));
         botonEditar.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
@@ -96,13 +94,8 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
         nombreABuscar.setFont(new Font("Andale Mono", 1, 12));
         add(nombreABuscar);
         
-        nombreProductoNuevo = new JLabel("Nombre nuevo para el producto");
-        nombreProductoNuevo.setBounds(20,320,200,30);
-        nombreProductoNuevo.setFont(new Font("Andale Mono", 1, 12));
-        add(nombreProductoNuevo);
-        
         precioProductoNuevo = new JLabel("Precio nuevo para el producto");
-        precioProductoNuevo.setBounds(20,400,200,30);
+        precioProductoNuevo.setBounds(20,320,200,30);
         precioProductoNuevo.setFont(new Font("Andale Mono", 1, 12));
         add(precioProductoNuevo);
         
@@ -114,27 +107,85 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e){
+        
         if(e.getSource() == botonBuscar){
-            guardaNombreBuscar = nombreProducto.getText().trim();
+            guardaNombreBuscar = nombreProducto.getText().toUpperCase().trim();
             if(guardaNombreBuscar.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Es necesario completar ambos campos para continuar");
+                JOptionPane.showMessageDialog(null, "Es necesario introducir el nombre del producto para continuar");
             }else{
                 try{
-                    busqueda = LogicaProducto.buscarProducto(guardaNombreBuscar); //hay que cambiar la pantalla para que no busque por precio, ya que no importa
+                    busqueda = LogicaProducto.buscarProducto(guardaNombreBuscar);
                     if(busqueda > -1){
-                        JOptionPane.showMessageDialog(null, "Se ha podido encontar el producto con éxito"); //sacar después
-                        System.out.println("Se ha encontrado el elemento en la posición " + busqueda);
-                        PantallaModificarProducto modificar = new PantallaModificarProducto(busqueda);
-                        modificar.setBounds(0,0,230,250);
-                        modificar.setVisible(true);
-                        modificar.setLocationRelativeTo(botonBuscar);
+                        JOptionPane.showMessageDialog(null, "Se ha encontrado el producto. Por favor, introduzca el precio nuevo");
+                        botonEditar.setEnabled(true);
+                        NuevoPrecioProducto.setEditable(true);
                     }else{
-                        JOptionPane.showMessageDialog(null, "No se ha podido encontrar el producto");
+                        JOptionPane.showMessageDialog(null, "No se ha podido encontrar el producto, intente nuevamente");
                     }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "Por favor, introduzca un valor válido " + ex);
                 }
             }  
+        }
+        
+        if(e.getSource() == botonEditar){
+            
+            if(busqueda < 0 || busqueda >= LogicaProducto.productos.size()){
+                JOptionPane.showMessageDialog(null, "Debe buscar un producto antes de modificar su precio");
+                return;
+            }
+            
+            guardarPrecioNuevo = NuevoPrecioProducto.getText().trim();
+            
+            try{
+                precioNuevo = Double.parseDouble(guardarPrecioNuevo);
+                if(precioNuevo >= 0){
+                    LogicaProducto.productos.get(busqueda).setPrecioUnidad(precioNuevo);
+                    DatosParaProducto.guardarProductos(productos);
+                    NuevoPrecioProducto.setText("Precio nuevo para el producto");
+                    botonEditar.setEnabled(false);
+                    NuevoPrecioProducto.setEditable(false);
+                    JOptionPane.showMessageDialog(null, "Se ha editado el precio del producto con éxito. Refresque la página para mostrar los cambios");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Por favor, introduzca un número mayor a 0");
+                }
+                
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "No se reconoce el valor introducido " + ex);
+            }
+            
+            
+        }
+        
+        if(e.getSource() == botonEliminar){
+            
+            //guarda el nombre directamente por si el usuario quiere eliminar el producto directamente
+            guardaNombreBuscar = nombreProducto.getText().toUpperCase().trim();
+            //Busca el producto nuevamente por si las dudas el índice ha cambiado
+            busqueda = LogicaProducto.buscarProducto(guardaNombreBuscar);
+            
+            if(guardaNombreBuscar.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Por favor, introduzca un nombre antes de continuar");
+            }
+            
+            if(busqueda < 0 || busqueda >= LogicaProducto.productos.size()){
+                JOptionPane.showMessageDialog(null, "El producto no existe o ha sido eliminado");
+                return;
+            }
+            
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas borrar el producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            
+            if(confirmacion == JOptionPane.YES_OPTION){
+                if(LogicaProducto.quitarProducto(busqueda)){
+                    JOptionPane.showMessageDialog(null, "Se ha borrado el producto correctamente. Refresque la página para continuar");
+                    DatosParaProducto.guardarProductos(productos);
+                    botonEditar.setEnabled(false);
+                    NuevoPrecioProducto.setEditable(false);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ocurrió un error al borrar el producto, intente nuevamente");
+                    DatosParaProducto.cargaProductos();
+                }
+            }
         }
     }
 }

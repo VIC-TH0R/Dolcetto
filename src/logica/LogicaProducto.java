@@ -12,6 +12,22 @@ public class LogicaProducto{
         productos = DatosParaProducto.cargaProductos();
     }
     
+    public static boolean quitarProducto(int indice){
+        
+        boolean bandera;
+        
+        bandera = false;
+        
+        if(indice < 0 || indice >= productos.size()){
+            return bandera;
+        }else{
+            productos.remove(indice);
+            bandera = true;
+        }
+        
+        return bandera;
+    }
+    
     public boolean agregarProductos(String nombre, double precio){
         if(existeProducto(nombre, precio)){
             return false;
@@ -39,16 +55,6 @@ public class LogicaProducto{
             }
         }
         return -1;
-    }
-    
-    public static void mostrarProductos(){
-        
-        System.out.println("\tNOMBRE\t\tPRECIO");
-        
-        for(Producto aux : productos){
-            System.out.print("\t" + aux.getNombre());
-            System.out.println("\t" + aux.getPrecioUnidad());
-        }
     }
     
     public static Object[][] convertirArrayListAArray(ArrayList<Producto> productosAux){

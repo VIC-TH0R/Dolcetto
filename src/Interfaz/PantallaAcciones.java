@@ -115,7 +115,7 @@ public class PantallaAcciones extends JFrame implements ActionListener{
     private void abrirPantallaModificarProducto(){
         
         PantallaBuscarProductos modificarProductos = new PantallaBuscarProductos();
-        modificarProductos.setBounds(0,0,400,550);
+        modificarProductos.setBounds(0,0,400,500);
         modificarProductos.setVisible(true);
         modificarProductos.setLocationRelativeTo(botonSalir);
         modificarProductos.setResizable(false);
