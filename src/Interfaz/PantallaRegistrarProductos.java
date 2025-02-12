@@ -7,7 +7,7 @@ import logica.LogicaProducto;
 
 public class PantallaRegistrarProductos extends JFrame implements ActionListener{
     
-    private JLabel nombreArticulo, precioArticulo;
+    private JLabel nombreArticulo, precioArticulo, logoEmpresa, fondo;
     private JTextField nombre, precio;
     private JButton registrar;
     boolean agregado;
@@ -21,31 +21,59 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         guardarProductos = new LogicaProducto();
         
+        //Images
+        
+        ImageIcon imagenDeFondo = new ImageIcon("images/Dolcetto/fondoParaPantallaBuscarProductos.png");
+        ImageIcon logo = new ImageIcon("images/Dolcetto/pdfgenerator.png");
+        ImageIcon agregarProducto = new ImageIcon("images/agregarProductoPantallaRegistrarProductos.png");
+        
+        //JTextField
+        
+        nombre = new JTextField("Introduzca el nombre del artículo");
+        nombre.setBounds(20,220,150,30);
+        nombre.setBackground(new Color(255,255,255));
+        nombre.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        add(nombre);
+        
+        precio = new JTextField("Introduzca el precio del artículo");
+        precio.setBounds(20,290,150,30);
+        precio.setBackground(new Color(255,255,255));
+        precio.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        add(precio);
+        
+        
+        //JButton
+        
+        registrar = new JButton();
+        registrar.setBounds(190,255,24,24);
+        registrar.setIcon(new ImageIcon(agregarProducto.getImage().getScaledInstance(registrar.getWidth(), registrar.getHeight(), Image.SCALE_AREA_AVERAGING)));
+        registrar.setBackground(new Color(255,255,255));
+        registrar.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        registrar.addActionListener(this);
+        add(registrar);
+        
         //JLabels
         
         nombreArticulo = new JLabel("Nombre del artículo");
-        nombreArticulo.setFont(new Font("Andale Mono", 1, 11));
-        nombreArticulo.setBounds(10,10,200,30);
+        nombreArticulo.setFont(new Font("Andale Mono", 1, 12));
+        nombreArticulo.setBounds(20,190,200,30);
         add(nombreArticulo);
         
         precioArticulo = new JLabel("Precio del artículo");
-        precioArticulo.setFont(new Font("Andale Mono", 1, 11));
-        precioArticulo.setBounds(10,100,200,30);
+        precioArticulo.setFont(new Font("Andale Mono", 1, 12));
+        precioArticulo.setBounds(20,260,200,30);
         add(precioArticulo);
         
-        //JTextField
-        nombre = new JTextField();
-        nombre.setBounds(10,40,250,30);
-        add(nombre);
+        logoEmpresa = new JLabel();
+        logoEmpresa.setBounds(20,20,100,100);
+        logoEmpresa.setIcon(new ImageIcon(logo.getImage().getScaledInstance(logoEmpresa.getWidth(), logoEmpresa.getHeight(), Image.SCALE_SMOOTH)));
+        add(logoEmpresa);
         
-        precio = new JTextField();
-        precio.setBounds(10,130,250,30);
-        add(precio);
-        //JButton
-        registrar = new JButton("Registrar");
-        registrar.setBounds(130,170,90,30);
-        registrar.addActionListener(this);
-        add(registrar);
+        fondo = new JLabel();
+        fondo.setBounds(0,0,300,500);
+        fondo.setIcon(new ImageIcon(imagenDeFondo.getImage().getScaledInstance(fondo.getWidth(), fondo.getHeight(), Image.SCALE_SMOOTH)));
+        add(fondo);
+        
     }
     
     public void actionPerformed(ActionEvent e){

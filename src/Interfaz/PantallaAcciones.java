@@ -93,7 +93,7 @@ public class PantallaAcciones extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
         
         if(e.getSource() == botonRegistrarProductos){
-            abrirVentanaRegistrarProductos();
+            abrirPantallaRegistrarProductos();
         }else if(e.getSource() == botonModificarProductos){
             abrirPantallaEditarEliminarProducto();
         }else if(e.getSource() == botonGenerarInforme){
@@ -103,11 +103,11 @@ public class PantallaAcciones extends JFrame implements ActionListener{
         }
     }
     
-    private void abrirVentanaRegistrarProductos(){
+    private void abrirPantallaRegistrarProductos(){
         
         PantallaRegistrarProductos registro = new PantallaRegistrarProductos();
         registro.setVisible(true);
-        registro.setBounds(0,0,400,250);
+        registro.setBounds(0,0,300,500);
         registro.setLocationRelativeTo(botonGenerarInforme);
         registro.setResizable(false);
     }
