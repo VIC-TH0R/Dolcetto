@@ -29,6 +29,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
     public PantallaGenerarPDF(){
         
         setLayout(null);
+        this.setTitle("Generar Presupuesto");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         nombresJCombo = new String[]{"", "Unidades", "Docenas", "Kilos"};

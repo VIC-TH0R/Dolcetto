@@ -18,6 +18,7 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
     public PantallaRegistrarProductos(){
         
         setLayout(null);
+        this.setTitle("Registrar Productos");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         guardarProductos = new LogicaProducto();
         
@@ -101,7 +102,7 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
                     if(agregado == true){
                         JOptionPane.showMessageDialog(null, "El producto ha sido creado exitosamente");
                     }else{
-                        JOptionPane.showMessageDialog(null, "El producto ya existe, no es posible duplicar");
+                        JOptionPane.showMessageDialog(null, "El producto con este mismo nombre ya existe, no es posible duplicar");
                     }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "El precio debe ser un formato válido");

@@ -29,7 +29,7 @@ public class LogicaProducto{
     }
     
     public boolean agregarProductos(String nombre, double precio){
-        if(existeProducto(nombre, precio)){
+        if(existeProducto(nombre)){
             return false;
         }
         Producto producto = new Producto(precio, nombre);
@@ -38,9 +38,9 @@ public class LogicaProducto{
         return true;
     }
     
-    public boolean existeProducto(String nombre, double precio){
+    public boolean existeProducto(String nombre){
         for(Producto producto : productos){
-            if(producto.getNombre().equalsIgnoreCase(nombre) && producto.getPrecioUnidad() == precio){
+            if(producto.getNombre().equalsIgnoreCase(nombre)){
                 return true;
             }
         }

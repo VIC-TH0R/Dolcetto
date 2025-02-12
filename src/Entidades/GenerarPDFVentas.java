@@ -7,6 +7,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Image;
 import java.io.FileOutputStream;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.JOptionPane;
@@ -28,8 +31,8 @@ public class GenerarPDFVentas{
     private void generarPDF(){
         try{
             Document pdfVentas = new Document();
-            String ruta = "C:/Users/victo/OneDrive/Desktop/Presupuesto.pdf";
-            PdfWriter.getInstance(pdfVentas, new FileOutputStream(ruta));
+            Path ruta = Paths.get(System.getProperty("user.home"), "Desktop", "Presupuesto.pdf");
+            PdfWriter.getInstance(pdfVentas, new FileOutputStream(ruta.toString()));
             
             Image encabezado = Image.getInstance("images/Dolcetto/DolcettoPDFBajaResolucion.jpg");
             encabezado.scaleToFit(1000,300);
