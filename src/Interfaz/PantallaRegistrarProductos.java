@@ -79,7 +79,7 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == registrar){
             
-            getNombre = nombre.getText().trim();
+            getNombre = nombre.getText().toUpperCase().trim();
             getPrecioTexto = precio.getText().trim();
             
             if(getNombre.isEmpty() || getPrecioTexto.isEmpty()){
@@ -89,6 +89,12 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
                 try{
                     //crear objeto y llamar al método para guardar la información
                     getPrecio = Double.parseDouble(getPrecioTexto);
+                    
+                    if(getPrecio < 0){
+                        JOptionPane.showMessageDialog(null, "No se puede agregar un precio menor a 0");
+                        return;
+                        
+                    }
                     
                     boolean agregado = guardarProductos.agregarProductos(getNombre, getPrecio);
                     
