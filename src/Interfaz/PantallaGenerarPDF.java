@@ -13,7 +13,7 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
     private JTable tabla, tablaParaVentas;
     private Object [][] datosParaTabla, datosParaTablaVentas;
     private String[] nombresColumnasParaTabla, nombresJCombo, nombresColumnasVentas; 
-    private JLabel ProductoAgregar, productosExistentes, cantidad, total, generarPDF;
+    private JLabel ProductoAgregar, productosExistentes, cantidad, total, generarPDF, fondo;
     private JTextField NombreProducto, textFieldCantidad, totalPrecio;
     private JScrollPane paraLaTabla, paraTablaVentas;
     private JButton botonBuscar, botonCarritoAgregarProducto, botonQuitarProducto, botonGenerarPdf;
@@ -66,8 +66,73 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         ImageIcon iconoCarrito = new ImageIcon("images/Carrito.png");
         ImageIcon iconoPDF = new ImageIcon("images/pdfgenerator.png");
         ImageIcon iconoEliminarProducto = new ImageIcon("images/borrarProducto.png");
+        ImageIcon imagenDeFondo = new ImageIcon("images/Dolcetto/fondoParaPantallaBuscarProductos.png");
         
-        //JLabels
+        //JTextFields
+        
+        NombreProducto = new JTextField();
+        NombreProducto.setBounds(20,290,250,30);
+        add(NombreProducto);
+        
+        textFieldCantidad = new JTextField("");
+        textFieldCantidad.setBounds(20,370,130,30);
+        textFieldCantidad.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        textFieldCantidad.setEnabled(false);
+        textFieldCantidad.setDisabledTextColor(Color.BLACK);
+        textFieldCantidad.setBackground(new Color(200,200,200));
+        add(textFieldCantidad);
+        
+        totalPrecio = new JTextField();
+        totalPrecio.setBounds(240,570,90,30);
+        totalPrecio.setEditable(false);
+        add(totalPrecio);
+        
+        //JButtons
+        
+        botonBuscar = new JButton();
+        botonBuscar.setBounds(275,290,30,30);
+        botonBuscar.setIcon(new ImageIcon(iconoBuscar.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_SMOOTH)));
+        botonBuscar.setBackground(new Color(255,255,255));
+        botonBuscar.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        botonBuscar.addActionListener(this);
+        add(botonBuscar);
+        
+        botonCarritoAgregarProducto = new JButton();
+        botonCarritoAgregarProducto.setBounds(280,370,30,30);
+        botonCarritoAgregarProducto.setIcon(new ImageIcon(iconoCarrito.getImage().getScaledInstance(botonCarritoAgregarProducto.getWidth(), botonCarritoAgregarProducto.getHeight(), Image.SCALE_SMOOTH)));
+        botonCarritoAgregarProducto.setBackground(new Color(255,255,255));
+        botonCarritoAgregarProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        botonCarritoAgregarProducto.addActionListener(this);
+        botonCarritoAgregarProducto.setEnabled(false);
+        add(botonCarritoAgregarProducto);
+        
+        botonQuitarProducto = new JButton();
+        botonQuitarProducto.setBounds(320,370,30,30);
+        botonQuitarProducto.setIcon(new ImageIcon(iconoEliminarProducto.getImage().getScaledInstance(botonQuitarProducto.getWidth(), botonQuitarProducto.getHeight(), Image.SCALE_SMOOTH)));
+        botonQuitarProducto.setBackground(new Color(255,255,255));
+        botonQuitarProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        botonQuitarProducto.addActionListener(this);
+        add(botonQuitarProducto);
+        
+        
+        botonGenerarPdf = new JButton();
+        botonGenerarPdf.setBounds(300,610,30,30);
+        botonGenerarPdf.setIcon(new ImageIcon(iconoPDF.getImage().getScaledInstance(botonGenerarPdf.getWidth(), botonGenerarPdf.getHeight(), Image.SCALE_SMOOTH)));
+        botonGenerarPdf.setBackground(new Color(255,255,255));
+        botonGenerarPdf.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        botonGenerarPdf.addActionListener(this);
+        add(botonGenerarPdf);
+        
+        //JComboBox
+        
+        cantidades = new JComboBox(nombresJCombo);
+        cantidades.setBounds(170,370,100,25);
+        cantidades.setBackground(new Color(255,255,255));
+        cantidades.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
+        cantidades.setEnabled(false);
+        add(cantidades);
+        
+                //JLabels
         
         productosExistentes = new JLabel("Productos Almacenados");
         productosExistentes.setFont(new Font("Andale Mono", 1, 13));
@@ -94,71 +159,43 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         generarPDF.setFont(new Font("Andale Mono",1,12));
         add(generarPDF);
         
-        //JTextFields
+        fondo = new JLabel();
+        fondo.setBounds(0,0,400,700);
+        fondo.setIcon(new ImageIcon(imagenDeFondo.getImage().getScaledInstance(fondo.getWidth(), fondo.getHeight(), Image.SCALE_SMOOTH)));
+        add(fondo);
         
-        NombreProducto = new JTextField();
-        NombreProducto.setBounds(20,290,250,30);
-        add(NombreProducto);
-        
-        textFieldCantidad = new JTextField("");
-        textFieldCantidad.setBounds(20,370,130,30);
-        add(textFieldCantidad);
-        
-        totalPrecio = new JTextField();
-        totalPrecio.setBounds(240,570,90,30);
-        totalPrecio.setEditable(false);
-        add(totalPrecio);
-        
-        //JButtons
-        
-        botonBuscar = new JButton();
-        botonBuscar.setBounds(275,290,30,30);
-        botonBuscar.setIcon(new ImageIcon(iconoBuscar.getImage().getScaledInstance(botonBuscar.getWidth(), botonBuscar.getHeight(), Image.SCALE_SMOOTH)));
-        botonBuscar.addActionListener(this);
-        add(botonBuscar);
-        
-        botonCarritoAgregarProducto = new JButton();
-        botonCarritoAgregarProducto.setBounds(280,370,30,30);
-        botonCarritoAgregarProducto.setIcon(new ImageIcon(iconoCarrito.getImage().getScaledInstance(botonCarritoAgregarProducto.getWidth(), botonCarritoAgregarProducto.getHeight(), Image.SCALE_SMOOTH)));
-        botonCarritoAgregarProducto.addActionListener(this);
-        add(botonCarritoAgregarProducto);
-        
-        botonQuitarProducto = new JButton();
-        botonQuitarProducto.setBounds(320,370,30,30);
-        botonQuitarProducto.setIcon(new ImageIcon(iconoEliminarProducto.getImage().getScaledInstance(botonQuitarProducto.getWidth(), botonQuitarProducto.getHeight(), Image.SCALE_SMOOTH)));
-        botonQuitarProducto.addActionListener(this);
-        add(botonQuitarProducto);
-        
-        
-        botonGenerarPdf = new JButton();
-        botonGenerarPdf.setBounds(300,610,30,30);
-        botonGenerarPdf.setIcon(new ImageIcon(iconoPDF.getImage().getScaledInstance(botonGenerarPdf.getWidth(), botonGenerarPdf.getHeight(), Image.SCALE_SMOOTH)));
-        botonGenerarPdf.addActionListener(this);
-        add(botonGenerarPdf);
-        
-        //JComboBox
-        
-        cantidades = new JComboBox(nombresJCombo);
-        cantidades.setBounds(170,370,100,25);
-        add(cantidades);
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){
+
+                totalPara_totalPrecio = 0;
+                totalPrecio.setText(String.format("%.2f", totalPara_totalPrecio));
+                LogicaVentas.ventas.clear();//elimina los elementos del arrayList Ventas
+                actualizarTablaVentas();
+            }
+        });
     }
     
 public void actionPerformed(ActionEvent e) {
     
-    if (e.getSource() == botonBuscar) {
+    if (e.getSource() == botonBuscar){
+        
         nombreBuscado = NombreProducto.getText().trim();
         indice = LogicaProducto.buscarProducto(nombreBuscado);
 
         if(indice > -1){
             JOptionPane.showMessageDialog(null, "Se ha encontrado el producto");
+            botonCarritoAgregarProducto.setEnabled(true);
+            textFieldCantidad.setEnabled(true);
+            textFieldCantidad.setDisabledTextColor(Color.WHITE);
+            textFieldCantidad.setBackground(new Color(255,255,255));
             NombreProducto.setEnabled(false);
+            cantidades.setEnabled(true);
             NombreProducto.setDisabledTextColor(Color.BLACK);
             NombreProducto.setBackground(new Color(200, 200, 200)); // color gris
             botonBuscar.setEnabled(false);
-            
         }else{
             JOptionPane.showMessageDialog(null, "No se ha encontrado el producto, intente nuevamente");
-            NombreProducto.setText("");
         }
     }
 
@@ -169,6 +206,12 @@ public void actionPerformed(ActionEvent e) {
             NombreProducto.setDisabledTextColor(Color.WHITE);
             NombreProducto.setBackground(new Color(255, 255, 255));
             botonBuscar.setEnabled(true);
+            botonCarritoAgregarProducto.setEnabled(false);
+            textFieldCantidad.setText("");
+            textFieldCantidad.setEnabled(false);
+            textFieldCantidad.setDisabledTextColor(Color.BLACK);
+            textFieldCantidad.setBackground(new Color(200,200,200));
+            cantidades.setEnabled(false);
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo agregar el producto, intente nuevamente");
         }
@@ -200,7 +243,21 @@ public void actionPerformed(ActionEvent e) {
     }
     
     if(e.getSource() == botonGenerarPdf){
-        GenerarPDFVentas pdf = new GenerarPDFVentas(LogicaVentas.ventas, totalPara_totalPrecio);
+        
+        if(totalPara_totalPrecio <= 0){
+            
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas generar un informe de ventas con un valor igual o menor a 0?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            
+            if(confirmacion == JOptionPane.YES_OPTION){
+                GenerarPDFVentas pdf = new GenerarPDFVentas(LogicaVentas.ventas, totalPara_totalPrecio);
+            }
+        }else if(totalPara_totalPrecio > 0){
+            GenerarPDFVentas pdf = new GenerarPDFVentas(LogicaVentas.ventas, totalPara_totalPrecio);
+            LogicaVentas.ventas.clear(); //borra todos los productos del arraylist
+            totalPara_totalPrecio = 0;
+            actualizarTablaVentas();
+            totalPrecio.setText(String.format("%.2f", totalPara_totalPrecio));
+        }
     }
     
 }

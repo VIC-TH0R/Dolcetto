@@ -7,7 +7,7 @@ import logica.LogicaProducto;
 import Entidades.DatosParaProducto;
 import static logica.LogicaProducto.productos;
 
-public class PantallaBuscarProductos extends JFrame implements ActionListener{
+public class PantallaEditarEliminarProductos extends JFrame implements ActionListener{
     
     private JTable productosRegistrados;
     private Object[][] datosParaTablaProductos;
@@ -20,7 +20,7 @@ public class PantallaBuscarProductos extends JFrame implements ActionListener{
     private int busqueda = -1;
     private double precioNuevo;
     
-    public PantallaBuscarProductos(){
+    public PantallaEditarEliminarProductos(){
         setLayout(null);
         this.setTitle("Pantalla para modificar/eliminar productos");
         
