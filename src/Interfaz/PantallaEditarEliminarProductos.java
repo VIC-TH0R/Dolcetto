@@ -154,7 +154,7 @@ public class PantallaEditarEliminarProductos extends JFrame implements ActionLis
                 if(precioNuevo >= 0){
                     LogicaProducto.productos.get(busqueda).setPrecioUnidad(precioNuevo);
                     DatosParaProducto.guardarProductos(productos);
-                    NuevoPrecioProducto.setText("Precio nuevo para el producto");
+                    NuevoPrecioProducto.setText("");
                     botonEditar.setEnabled(false);
                     NuevoPrecioProducto.setEditable(false);
                     JOptionPane.showMessageDialog(null, "Se ha editado el precio del producto con éxito");
