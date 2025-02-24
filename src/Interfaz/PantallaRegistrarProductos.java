@@ -30,13 +30,13 @@ public class PantallaRegistrarProductos extends JFrame implements ActionListener
         
         //JTextField
         
-        nombre = new JTextField("Introduzca el nombre del artículo");
+        nombre = new JTextField("");
         nombre.setBounds(20,220,150,30);
         nombre.setBackground(new Color(255,255,255));
         nombre.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(nombre);
         
-        precio = new JTextField("Introduzca el precio del artículo");
+        precio = new JTextField("");
         precio.setBounds(20,290,150,30);
         precio.setBackground(new Color(255,255,255));
         precio.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));

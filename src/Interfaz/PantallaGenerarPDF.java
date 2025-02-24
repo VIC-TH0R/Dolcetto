@@ -44,7 +44,17 @@ public class PantallaGenerarPDF extends JFrame implements ActionListener{
         
         //creando la tabla
         tabla = new JTable(datosParaTabla, nombresColumnasParaTabla);
-        tabla.setEnabled(false);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mousePressed(MouseEvent me){
+                if(me.getClickCount() == 2){
+                   filaSeleccionada = tabla.getSelectedRow();
+                   if(filaSeleccionada > -1){
+                       NombreProducto.setText(LogicaProducto.productos.get(filaSeleccionada).getNombre());
+                   }
+                }
+            }
+        });
+        tabla.setEnabled(true);
         
         //creando la tabla para las ventas
         
@@ -266,7 +276,7 @@ public void actionPerformed(ActionEvent e) {
     private boolean agregarProductoAlCarrito(int indice){
         
         String cantidadTexto, getUnidad;
-        int canti;
+        double canti;
         boolean seAgregoCorrectamente;
         
         cantidadTexto = textFieldCantidad.getText().trim();
@@ -283,7 +293,7 @@ public void actionPerformed(ActionEvent e) {
         }
         
         try{
-            canti = Integer.parseInt(cantidadTexto);
+            canti = Float.parseFloat(cantidadTexto);
             
             if(canti <= 0){
                 JOptionPane.showMessageDialog(null, "La cantidad debe ser mayor a 0");

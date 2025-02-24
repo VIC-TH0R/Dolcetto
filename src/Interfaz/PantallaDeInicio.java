@@ -53,7 +53,7 @@ public class PantallaDeInicio extends JFrame implements ActionListener{
         
         //JTextFields
         
-        nombre = new JTextField("Ingrese su usuario");
+        nombre = new JTextField("");
         nombre.setBounds(10,180,170,30);
         nombre.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(nombre);
@@ -86,6 +86,7 @@ public class PantallaDeInicio extends JFrame implements ActionListener{
         this.dispose();
         acciones.setVisible(true);
         acciones.setBounds(0,0,550,330);
+        acciones.setResizable(false);
         acciones.setLocationRelativeTo(null);
     }
 }

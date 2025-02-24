@@ -3,12 +3,12 @@ package logica;
 public class ProductosVentas{
     
     private double precioProducto;
-    private int cantidadProducto;
+    private double cantidadProducto;
     private String medidaUsada;  //peso, unidades o docenas
     private String nombreProducto;
     
     
-    public ProductosVentas(String nombreProducto, double precioProducto, int cantidadProducto, String medidaUsada){
+    public ProductosVentas(String nombreProducto, double precioProducto, double cantidadProducto, String medidaUsada){
         
         this.precioProducto = precioProducto;
         this.cantidadProducto = cantidadProducto;
@@ -26,11 +26,11 @@ public class ProductosVentas{
         this.precioProducto = precioProducto;
     }
 
-    public int getCantidadProducto() {
+    public double getCantidadProducto() {
         return cantidadProducto;
     }
 
-    public void setCantidadProducto(int cantidadProducto) {
+    public void setCantidadProducto(double cantidadProducto) {
         this.cantidadProducto = cantidadProducto;
     }
 

@@ -12,7 +12,7 @@ public class LogicaVentas{
         }
     }
     
-    public static double agregarProductoVendido(double precio, int cantidad, String medidaUsada, String nombreArticulo, double totalVentas){
+    public static double agregarProductoVendido(double precio, double cantidad, String medidaUsada, String nombreArticulo, double totalVentas){
         //Caso que el producto ya exista
         for(ProductosVentas pv : ventas){
             if(pv.getNombreProducto().equalsIgnoreCase(nombreArticulo) && pv.getPrecioProducto() == precio && pv.getMedidaUsada().equalsIgnoreCase(medidaUsada)){
@@ -63,7 +63,7 @@ public class LogicaVentas{
         return datos;
     }
     
-    public static double sumarTotal(double precioProducto, int cantidadProducto, String medidaProducto){
+    public static double sumarTotal(double precioProducto, double cantidadProducto, String medidaProducto){
         
         double medidaANumero;
         double total;

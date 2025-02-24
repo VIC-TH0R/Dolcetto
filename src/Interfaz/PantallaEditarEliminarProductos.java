@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.*;
 import logica.LogicaProducto;
 import Entidades.DatosParaProducto;
+import javax.swing.table.DefaultTableModel;
 import static logica.LogicaProducto.productos;
 
 public class PantallaEditarEliminarProductos extends JFrame implements ActionListener{
@@ -36,7 +37,18 @@ public class PantallaEditarEliminarProductos extends JFrame implements ActionLis
         NombreColumnasParaTablaProductos = new String[]{"Nombre", "Precio"};
         datosParaTablaProductos = LogicaProducto.convertirArrayListAArray(LogicaProducto.productos);
         productosRegistrados = new JTable(datosParaTablaProductos, NombreColumnasParaTablaProductos);
-        productosRegistrados.setEnabled(false);
+        productosRegistrados.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mousePressed(MouseEvent me){
+                int filaSeleccionada = -1;
+                if(me.getClickCount() == 2){
+                    filaSeleccionada = productosRegistrados.getSelectedRow();
+                }
+                if(filaSeleccionada > -1){
+                    nombreProducto.setText(LogicaProducto.productos.get(filaSeleccionada).getNombre());
+                }
+            }
+        });
+        productosRegistrados.setEnabled(true);
         
         paraTablaProductos = new JScrollPane(productosRegistrados);
         paraTablaProductos.setBounds(20,50,350,150);
@@ -44,12 +56,12 @@ public class PantallaEditarEliminarProductos extends JFrame implements ActionLis
         
         //JTextFields
         
-        nombreProducto = new JTextField("Introduzca el nombre de un producto");
+        nombreProducto = new JTextField("");
         nombreProducto.setBounds(20,250,200,30);
         nombreProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(nombreProducto);
         
-        NuevoPrecioProducto = new JTextField("Precio nuevo");
+        NuevoPrecioProducto = new JTextField("");
         NuevoPrecioProducto.setBounds(20,350,200,30);
         NuevoPrecioProducto.setBorder(BorderFactory.createLineBorder(new Color(255,255,255)));
         add(NuevoPrecioProducto);
@@ -145,7 +157,8 @@ public class PantallaEditarEliminarProductos extends JFrame implements ActionLis
                     NuevoPrecioProducto.setText("Precio nuevo para el producto");
                     botonEditar.setEnabled(false);
                     NuevoPrecioProducto.setEditable(false);
-                    JOptionPane.showMessageDialog(null, "Se ha editado el precio del producto con éxito. Refresque la página para mostrar los cambios");
+                    JOptionPane.showMessageDialog(null, "Se ha editado el precio del producto con éxito");
+                    actualizarTablaProductos();
                 }else{
                     JOptionPane.showMessageDialog(null, "Por favor, introduzca un número mayor a 0");
                 }
@@ -177,15 +190,25 @@ public class PantallaEditarEliminarProductos extends JFrame implements ActionLis
             
             if(confirmacion == JOptionPane.YES_OPTION){
                 if(LogicaProducto.quitarProducto(busqueda)){
-                    JOptionPane.showMessageDialog(null, "Se ha borrado el producto correctamente. Refresque la página para continuar");
+                    JOptionPane.showMessageDialog(null, "Se ha borrado el producto correctamente");
                     DatosParaProducto.guardarProductos(productos);
                     botonEditar.setEnabled(false);
                     NuevoPrecioProducto.setEditable(false);
+                    actualizarTablaProductos();
                 }else{
                     JOptionPane.showMessageDialog(null, "Ocurrió un error al borrar el producto, intente nuevamente");
                     DatosParaProducto.cargaProductos();
                 }
             }
         }
+    }
+    
+    private void actualizarTablaProductos(){
+        
+        Object[][] nuevosDatos = LogicaProducto.convertirArrayListAArray(LogicaProducto.productos);
+        DefaultTableModel modelo = new DefaultTableModel(nuevosDatos, NombreColumnasParaTablaProductos);
+        productosRegistrados.setModel(modelo);
+        productosRegistrados.revalidate();
+        productosRegistrados.repaint();
     }
 }
