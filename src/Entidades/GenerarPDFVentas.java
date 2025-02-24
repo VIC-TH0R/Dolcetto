@@ -31,8 +31,8 @@ public class GenerarPDFVentas{
     private void generarPDF(){
         try{
             Document pdfVentas = new Document();
-            Path ruta = Paths.get(System.getProperty("user.home"), "Desktop", "Presupuesto.pdf");
-            PdfWriter.getInstance(pdfVentas, new FileOutputStream(ruta.toString()));
+            String ruta = "C:/Users/victo/OneDrive/Desktop/Presupuesto.pdf";
+            PdfWriter.getInstance(pdfVentas, new FileOutputStream(ruta));
             
             Image encabezado = Image.getInstance("images/Dolcetto/DolcettoPDFBajaResolucion.jpg");
             encabezado.scaleToFit(1000,300);
@@ -51,7 +51,7 @@ public class GenerarPDFVentas{
 
             for(ProductosVentas productos : ventas){
                 try{
-                    String informacionVenta = String.format(Locale.US, "%.2f        %d                %s            %s", productos.getPrecioProducto(), productos.getCantidadProducto(), productos.getMedidaUsada(), productos.getNombreProducto());
+                    String informacionVenta = String.format(Locale.US, "%.2f        %f                %s            %s", productos.getPrecioProducto(), productos.getCantidadProducto(), productos.getMedidaUsada(), productos.getNombreProducto());
                     pdfVentas.add(new Paragraph(informacionVenta));
             }catch(Exception ex){
                 System.err.println("Error al agregar producto al PDF: " + ex.getMessage());
